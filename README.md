@@ -13,3 +13,10 @@
 
 - LazyVerticalGrid로 게임 판 UI 구성
 - 숫자 블록 UI
+
+
+
+![drag](https://github.com/yangsooplus/Shaking2048/assets/69582122/0127a0e0-92fa-4ca9-8f21-3cbc9a5e27d1)
+
+- Drag 방향 감지
+- 대각선의 경우 드래그 폭이 더 넓은 방향으로
