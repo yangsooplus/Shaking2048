@@ -9,22 +9,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.yangsooplus.shaking2048.ui.theme.NumBoxColorMap
 import com.yangsooplus.shaking2048.ui.theme.Shaking2048Theme
 
 @Composable
-fun NumberBox(numBox: NumBox) {
+fun NumberBox(number: Long) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .aspectRatio(1f)
-            .background(color = numBox.color, shape = RoundedCornerShape(8.dp))
+            .background(color = NumBoxColorMap[number] ?: Color.Transparent, shape = RoundedCornerShape(8.dp))
 
     ) {
-        if (numBox != NumBox.EMPTY) {
+        if (number > 0L) {
             Text(
-                text = "${numBox.number}",
+                text = "$number",
+                fontSize = 20.sp,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
@@ -35,7 +39,7 @@ fun NumberBox(numBox: NumBox) {
 @Composable
 fun NumberBoxPreview() {
     Shaking2048Theme {
-        NumberBox(NumBox.TYPE2)
+        NumberBox(2L)
     }
 }
 
@@ -43,6 +47,6 @@ fun NumberBoxPreview() {
 @Composable
 fun NumberBoxEmptyPreview() {
     Shaking2048Theme {
-        NumberBox(NumBox.EMPTY)
+        NumberBox(0L)
     }
 }

@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -19,13 +20,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.yangsooplus.shaking2048.ui.theme.Shaking2048Theme
 import kotlin.math.abs
+import kotlin.math.log2
 
 enum class Drag {
     LEFT, RIGHT, UP, DOWN
 }
 
 @Composable
-fun GameSurface() {
+fun GameSurface(data: MutableList<Long>) {
     var currentDrag: Drag = Drag.DOWN
     Surface(
         modifier = Modifier
@@ -50,12 +52,12 @@ fun GameSurface() {
                 }
             }
     ) {
-        Grid2048()
+        Grid2048(data)
     }
 }
 
 @Composable
-fun Grid2048() {
+fun Grid2048(data: MutableList<Long>) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
         userScrollEnabled = false,
@@ -67,8 +69,8 @@ fun Grid2048() {
             .background(color = Color(0xFFBAAC9F), shape = RoundedCornerShape(8.dp))
             .padding(8.dp)
     ) {
-        items(16) {
-            NumberBox(numBox = NumBox.TYPE2)
+        items(data.size) {
+            NumberBox(data[it])
         }
     }
 }
@@ -77,6 +79,14 @@ fun Grid2048() {
 @Preview
 fun GameSurfacePreview() {
     Shaking2048Theme {
-        GameSurface()
+        val testData = remember {
+            mutableListOf(
+                0L, 2L, 4L, 8L,
+                16L, 32L, 64L, 128L,
+                256L, 512L, 1024L, 2048L,
+                0L, 0L, 0L, 0L
+            )
+        }
+        GameSurface(testData)
     }
 }
